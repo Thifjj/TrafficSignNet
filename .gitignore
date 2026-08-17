@@ -1,0 +1,15 @@
+# Dataset GTSRB completo e arquivos baixados localmente.
+data/
+
+# Artefatos temporários do Python.
+__pycache__/
+*.py[cod]
+
+# Arquivos locais comuns de ambiente e ferramentas.
+.env
+.env.*
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+

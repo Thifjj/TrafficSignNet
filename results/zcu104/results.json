@@ -1,0 +1,203 @@
+{
+  "python": "3.9.9",
+  "model": {
+    "input_name": "quant_image",
+    "input_shape": [
+      1,
+      32,
+      32,
+      3
+    ],
+    "input_fix_point": 6,
+    "output_name": "quant_logits_fix",
+    "output_shape": [
+      1,
+      43
+    ],
+    "output_fix_point": 1
+  },
+  "model_only": {
+    "mode": "DPU MODEL-ONLY",
+    "scope": "Prequantized INT8 input through the VART DPU runner; host preprocessing and argmax excluded",
+    "batch_size": 1,
+    "warmup": 1000,
+    "runs": 5,
+    "seconds_per_run": 60.0,
+    "fps_mean": 4498.84133378794,
+    "latency_mean_ms": 0.21576506283959712,
+    "runs_data": [
+      {
+        "run": 1,
+        "inferences": 270556,
+        "elapsed_seconds": 60.00009233000014,
+        "fps": 4509.259727667479,
+        "latency_ms": {
+          "mean": 0.21523578006032026,
+          "median": 0.21478,
+          "min": 0.20763,
+          "max": 2.52456,
+          "p90": 0.21599,
+          "p95": 0.21719,
+          "p99": 0.2283345000000001,
+          "p99_9": 0.24161445000000006
+        }
+      },
+      {
+        "run": 2,
+        "inferences": 269492,
+        "elapsed_seconds": 60.00006824999991,
+        "fps": 4491.528224219985,
+        "latency_ms": {
+          "mean": 0.2161213345850712,
+          "median": 0.21596,
+          "min": 0.2087,
+          "max": 2.16487,
+          "p90": 0.21717,
+          "p95": 0.21813,
+          "p99": 0.22885090000000025,
+          "p99_9": 0.2414850900000002
+        }
+      },
+      {
+        "run": 3,
+        "inferences": 269629,
+        "elapsed_seconds": 60.000110009999844,
+        "fps": 4493.808427268927,
+        "latency_ms": {
+          "mean": 0.21601012068434777,
+          "median": 0.21571,
+          "min": 0.20855,
+          "max": 1.17133,
+          "p90": 0.21753,
+          "p95": 0.2183,
+          "p99": 0.22834,
+          "p99_9": 0.2451
+        }
+      },
+      {
+        "run": 4,
+        "inferences": 269983,
+        "elapsed_seconds": 60.00007144999995,
+        "fps": 4499.711308260454,
+        "latency_ms": {
+          "mean": 0.215737813936433,
+          "median": 0.21552,
+          "min": 0.20828,
+          "max": 1.38179,
+          "p90": 0.21662,
+          "p95": 0.21749,
+          "p99": 0.2277,
+          "p99_9": 0.24585018000000042
+        }
+      },
+      {
+        "run": 5,
+        "inferences": 269994,
+        "elapsed_seconds": 60.000013580000086,
+        "fps": 4499.898981522857,
+        "latency_ms": {
+          "mean": 0.2157202649318133,
+          "median": 0.21546,
+          "min": 0.20848,
+          "max": 2.57915,
+          "p90": 0.21664,
+          "p95": 0.21756,
+          "p99": 0.22800070000000008,
+          "p99_9": 0.2456700700000004
+        }
+      }
+    ]
+  },
+  "host_to_host": {
+    "mode": "DPU HOST-TO-HOST UINT8",
+    "scope": "In-memory uint8 input; float normalization, INT8 quantization, VART DPU execution, synchronization, and argmax included; file I/O/resize excluded",
+    "batch_size": 1,
+    "warmup": 1000,
+    "runs": 5,
+    "seconds_per_run": 60.0,
+    "fps_mean": 1539.4074541242553,
+    "latency_mean_ms": 0.6430577241430271,
+    "runs_data": [
+      {
+        "run": 1,
+        "inferences": 92454,
+        "elapsed_seconds": 60.00054024999986,
+        "fps": 1540.8861256045143,
+        "latency_ms": {
+          "mean": 0.6424232015921431,
+          "median": 0.6403,
+          "min": 0.6313,
+          "max": 2.73853,
+          "p90": 0.65395,
+          "p95": 0.65606,
+          "p99": 0.6637935,
+          "p99_9": 0.7164410000000178
+        }
+      },
+      {
+        "run": 2,
+        "inferences": 92328,
+        "elapsed_seconds": 60.0004326899998,
+        "fps": 1538.788903023831,
+        "latency_ms": {
+          "mean": 0.6433161106056667,
+          "median": 0.64108,
+          "min": 0.63049,
+          "max": 2.00166,
+          "p90": 0.65472,
+          "p95": 0.65707,
+          "p99": 0.6690373,
+          "p99_9": 0.7148287800000085
+        }
+      },
+      {
+        "run": 3,
+        "inferences": 92334,
+        "elapsed_seconds": 60.00002717999996,
+        "fps": 1538.8993028786167,
+        "latency_ms": {
+          "mean": 0.6432732472328719,
+          "median": 0.641,
+          "min": 0.63138,
+          "max": 1.96914,
+          "p90": 0.65484,
+          "p95": 0.65715,
+          "p99": 0.66943,
+          "p99_9": 0.7075941800000402
+        }
+      },
+      {
+        "run": 4,
+        "inferences": 92310,
+        "elapsed_seconds": 60.000060230000145,
+        "fps": 1538.4984556039633,
+        "latency_ms": {
+          "mean": 0.643444210919727,
+          "median": 0.64109,
+          "min": 0.63226,
+          "max": 2.0703,
+          "p90": 0.65502,
+          "p95": 0.65726,
+          "p99": 0.6697,
+          "p99_9": 0.7376960100000007
+        }
+      },
+      {
+        "run": 5,
+        "inferences": 92398,
+        "elapsed_seconds": 60.00008505999995,
+        "fps": 1539.964483510352,
+        "latency_ms": {
+          "mean": 0.6428318503647267,
+          "median": 0.64055,
+          "min": 0.63206,
+          "max": 1.83768,
+          "p90": 0.6544530000000001,
+          "p95": 0.65663,
+          "p99": 0.66809,
+          "p99_9": 0.7076647700000622
+        }
+      }
+    ]
+  }
+}
