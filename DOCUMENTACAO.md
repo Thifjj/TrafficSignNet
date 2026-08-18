@@ -68,69 +68,49 @@ classe e evita trabalho desnecessário.
 
 ```text
 TrafficSignNet/
-├── DOCUMENTACAO.md
-├── quantize_VAI.py
+├── models/
+│   ├── keras/
+│   └── compiled/trafficsignnet_zcu104/
 ├── scripts/
-│   └── rebuild_model_tf212.py
-├── modelo/
-│   ├── TrafficSignNet_FP32.h5
-│   ├── TrafficSignNet_FP32_weights.npz
-│   └── TrafficSignNet_INT8.h5
-├── modelo_tf212/
-│   └── TrafficSignNet_FP32_TF212.h5
-├── compiled/
-│   └── trafficsignnet_zcu104/
-│       ├── trafficsignnet_int8.xmodel
-│       ├── meta.json
-│       └── md5sum.txt
-├── benchmark_example/
-│   └── benchmark_cpu_model_and_host.py
-├── benchmark_vitisai/
-│   ├── README.md
-│   ├── benchmark_cpu_model_and_host.py
-│   └── benchmark_nvidia_gpu.py
-├── data/gtsrb/
-│   ├── downloads/
-│   ├── raw/
-│   └── split/{train,val,test}/
+│   ├── rebuild_model_tf212.py
+│   ├── quantize_vai.py
+│   └── package_zcu104.sh
+├── benchmarks/
+│   ├── tensorflow/
+│   └── vitisai/
+├── deploy/zcu104/
+│   ├── cpp/
+│   ├── model/
+│   └── dataset/                 # local, ignorado pelo Git
+├── data/gtsrb/                  # local, ignorado pelo Git
 ├── results/
-│   ├── vitisai/
-│   │   ├── cpu_model_only.json
-│   │   └── cpu_host_to_host.json
-│   └── zcu104/results.json
-├── zcu104_inference/
-│   ├── inference.py
-│   ├── run.sh
-│   ├── check_board.sh
-│   ├── README.md
-│   ├── model/trafficsignnet_int8.xmodel
-│   └── dataset/00000 ... 00042/
-└── zcu104_inference.tar.gz
+├── README.md
+└── DOCUMENTACAO.md
 ```
 
 ### Arquivos de modelo
 
 | Arquivo | Finalidade |
 |---|---|
-| `modelo/TrafficSignNet_FP32.h5` | Modelo Keras original em ponto flutuante. |
-| `modelo/TrafficSignNet_FP32_weights.npz` | Pesos portáveis, com metadados e checksums, usados para reconstruir o modelo em outra versão do TensorFlow. |
-| `modelo_tf212/TrafficSignNet_FP32_TF212.h5` | Modelo FP32 reconstruído no TensorFlow 2.12. É a entrada de `quantize_VAI.py`. |
-| `modelo/TrafficSignNet_INT8.h5` | Modelo Keras quantizado pelo Vitis AI. Ainda é usado no host TensorFlow; não é o arquivo executado diretamente pelo DPU. |
-| `compiled/trafficsignnet_zcu104/trafficsignnet_int8.xmodel` | Modelo final compilado para o DPU padrão da ZCU104. |
+| `models/keras/TrafficSignNet_FP32.h5` | Modelo Keras original em ponto flutuante. |
+| `models/keras/TrafficSignNet_FP32_weights.npz` | Pesos portáveis, com metadados e checksums, usados para reconstruir o modelo em outra versão do TensorFlow. |
+| `models/keras/TrafficSignNet_FP32_TF212.h5` | Modelo FP32 reconstruído no TensorFlow 2.12. É a entrada de `scripts/quantize_vai.py`. |
+| `models/keras/TrafficSignNet_INT8.h5` | Modelo Keras quantizado pelo Vitis AI. Ainda é usado no host TensorFlow; não é o arquivo executado diretamente pelo DPU. |
+| `models/compiled/trafficsignnet_zcu104/trafficsignnet_int8.xmodel` | Modelo final compilado para o DPU padrão da ZCU104. |
 
 ### Scripts do host
 
 | Arquivo | Finalidade |
 |---|---|
 | `scripts/rebuild_model_tf212.py` | Recria a arquitetura, valida cada tensor do NPZ e salva um H5 compatível com TensorFlow 2.12. |
-| `quantize_VAI.py` | Usa imagens de validação para calibrar e gerar o modelo INT8. Usa 32 lotes de 32 imagens, aproximadamente 1.024 amostras. |
-| `benchmark_example/benchmark_cpu_model_and_host.py` | Referência de benchmark do modelo FP32 na CPU. |
-| `benchmark_vitisai/benchmark_cpu_model_and_host.py` | Benchmark do H5 quantizado na CPU usando as camadas customizadas do Vitis AI. |
-| `benchmark_vitisai/benchmark_nvidia_gpu.py` | Benchmark do H5 quantizado em uma GPU NVIDIA visível pelo TensorFlow. Não mede o DPU. |
+| `scripts/quantize_vai.py` | Usa imagens de validação para calibrar e gerar o modelo INT8. Usa 32 lotes de 32 imagens, aproximadamente 1.024 amostras. |
+| `benchmarks/tensorflow/benchmark_cpu_model_and_host.py` | Referência de benchmark do modelo FP32 na CPU. |
+| `benchmarks/vitisai/benchmark_cpu_model_and_host.py` | Benchmark do H5 quantizado na CPU usando as camadas customizadas do Vitis AI. |
+| `benchmarks/vitisai/benchmark_nvidia_gpu.py` | Benchmark do H5 quantizado em uma GPU NVIDIA visível pelo TensorFlow. Não mede o DPU. |
 
 ### Arquivos compilados
 
-`compiled/trafficsignnet_zcu104/meta.json` informa que o XMODEL usa:
+`models/compiled/trafficsignnet_zcu104/meta.json` informa que o XMODEL usa:
 
 ```text
 runner:  libvart-dpu-runner.so
@@ -148,7 +128,7 @@ verificar se o arquivo não foi corrompido durante a cópia.
 | `data/gtsrb/split/train` | Treinamento original | 226 MB |
 | `data/gtsrb/split/val` | Validação e calibração INT8 | 52 MB |
 | `data/gtsrb/split/test` | Avaliação completa | 90 MB |
-| `zcu104_inference/dataset` | Subconjunto leve para a placa: 10 imagens de cada uma das 43 classes | 3,4 MB aproximadamente |
+| `deploy/zcu104/dataset` | Subconjunto leve para a placa: 10 imagens de cada uma das 43 classes | 3,4 MB aproximadamente |
 
 O rótulo é obtido do nome da pasta. Por exemplo, uma imagem em `00014/` tem
 classe esperada 14. O pacote da placa tem 430 imagens no total.
@@ -167,19 +147,19 @@ python3 scripts/rebuild_model_tf212.py
 Entrada:
 
 ```text
-modelo/TrafficSignNet_FP32_weights.npz
+models/keras/TrafficSignNet_FP32_weights.npz
 ```
 
 Saída:
 
 ```text
-modelo_tf212/TrafficSignNet_FP32_TF212.h5
+models/keras/TrafficSignNet_FP32_TF212.h5
 ```
 
 ### Quantizar
 
 ```bash
-python3 quantize_VAI.py
+python3 scripts/quantize_vai.py
 ```
 
 O script normaliza as imagens com `/255.0`. Essa normalização deve continuar
@@ -188,7 +168,7 @@ igual durante calibração e inferência.
 Saída:
 
 ```text
-modelo/TrafficSignNet_INT8.h5
+models/keras/TrafficSignNet_INT8.h5
 ```
 
 ## 5. Compilação para a ZCU104
@@ -196,12 +176,12 @@ modelo/TrafficSignNet_INT8.h5
 Dentro do container TensorFlow 2 do Vitis AI 3.5:
 
 ```bash
-mkdir -p compiled/trafficsignnet_zcu104
+mkdir -p models/compiled/trafficsignnet_zcu104
 
 vai_c_tensorflow2 \
-  --model modelo/TrafficSignNet_INT8.h5 \
+  --model models/keras/TrafficSignNet_INT8.h5 \
   --arch /opt/vitis_ai/compiler/arch/DPUCZDX8G/ZCU104/arch.json \
-  --output_dir compiled/trafficsignnet_zcu104 \
+  --output_dir models/compiled/trafficsignnet_zcu104 \
   --net_name trafficsignnet_int8
 ```
 
@@ -211,7 +191,7 @@ customizado pode exigir outro `arch.json` e uma nova compilação.
 
 ## 6. Pacote da ZCU104
 
-`zcu104_inference.tar.gz` é o arquivo único para transferência. Ele contém:
+`trafficsignnet_zcu104.tar.gz` é o arquivo único para transferência. Ele contém:
 
 - XMODEL;
 - programa de inferência VART;
@@ -225,15 +205,15 @@ customizado pode exigir outro `arch.json` e uma nova compilação.
 No computador host:
 
 ```bash
-scp zcu104_inference.tar.gz root@IP_DA_ZCU104:/home/root/
+scp trafficsignnet_zcu104.tar.gz root@IP_DA_ZCU104:/home/root/
 ```
 
 Na placa:
 
 ```bash
 cd /home/root
-tar -xzf zcu104_inference.tar.gz
-cd zcu104_inference
+tar -xzf trafficsignnet_zcu104.tar.gz
+cd zcu104
 ./check_board.sh
 ```
 
@@ -460,7 +440,7 @@ single_image                     # somente quando --image é usado
 No computador host:
 
 ```bash
-scp root@IP_DA_ZCU104:/home/root/zcu104_inference/results.json \
+scp root@IP_DA_ZCU104:/home/root/deploy/zcu104/results.json \
   results/zcu104/results.json
 ```
 
@@ -472,8 +452,7 @@ o caminho correto.
 No diretório raiz do projeto:
 
 ```bash
-tar --exclude='__pycache__' -czf zcu104_inference.tar.gz zcu104_inference
-sha256sum zcu104_inference.tar.gz
+./scripts/package_zcu104.sh
 ```
 
 Depois copie novamente o `.tar.gz` para a placa.

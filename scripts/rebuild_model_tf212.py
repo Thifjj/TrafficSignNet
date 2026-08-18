@@ -52,12 +52,12 @@ def parse_args():
     parser.add_argument(
         "--weights",
         type=Path,
-        default=project_dir / "modelo" / "TrafficSignNet_FP32_weights.npz",
+        default=project_dir / "models" / "keras" / "TrafficSignNet_FP32_weights.npz",
     )
     parser.add_argument(
         "--output",
         type=Path,
-        default=project_dir / "modelo_tf212" / "TrafficSignNet_FP32_TF212.h5",
+        default=project_dir / "models" / "keras" / "TrafficSignNet_FP32_TF212.h5",
         help="Output .h5 file. Use a path without an extension for SavedModel.",
     )
     return parser.parse_args()

@@ -1,0 +1,25 @@
+# TrafficSignNet / GTSRB
+# Ambiente alvo: Python 3.11.15, Linux/Kubuntu, venv
+#
+# TensorFlow 2.21.0 e o mesmo major/minor usado no treinamento original.
+# O extra [and-cuda] instala as dependencias Python/CUDA necessarias
+# para uso de GPU NVIDIA no Linux.
+
+tensorflow==2.21.0
+
+# Manipulacao numerica e dataset
+numpy>=1.26,<3.0
+Pillow>=10.0,<13.0
+
+# Configuracao YAML (configs/baseline.yaml)
+PyYAML>=6.0,<7.0
+
+# Divisao/metricas auxiliares do dataset
+scikit-learn>=1.4,<2.0
+
+# Exportacao/carregamento de modelos .h5
+h5py>=3.10,<4.0
+
+# Utilitarios para download/progresso do GTSRB
+requests>=2.31,<3.0
+tqdm>=4.66,<5.0

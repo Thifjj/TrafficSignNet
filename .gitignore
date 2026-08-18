@@ -1,9 +1,17 @@
-# Dataset GTSRB completo e arquivos baixados localmente.
-data/
+# Datasets permanecem locais e não são publicados no GitHub.
+data/gtsrb/downloads/
+data/gtsrb/raw/
+data/gtsrb/split/
+deploy/zcu104/dataset/
+
+# O XMODEL do bundle e materializado a partir da copia canonica em models/.
+deploy/zcu104/model/*.xmodel
 
 # Artefatos temporários do Python.
 __pycache__/
-*.py[cod]
+*.pyc
+build/
+*.tar.gz
 
 # Arquivos locais comuns de ambiente e ferramentas.
 .env

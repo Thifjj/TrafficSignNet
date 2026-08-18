@@ -7,5 +7,4 @@ Consulte [DOCUMENTACAO.md](DOCUMENTACAO.md) para a descrição completa do fluxo
 de cada arquivo, dos comandos de execução e da interpretação dos resultados.
 
 Para executar diretamente na placa, consulte também
-[`zcu104_inference/README.md`](zcu104_inference/README.md).
-# TrafficSignNet
+[`deploy/zcu104/README.md`](deploy/zcu104/README.md).
