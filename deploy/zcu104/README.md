@@ -4,7 +4,7 @@ Self-contained Vitis AI 3.5 deployment bundle for the standard ZCU104
 `DPUCZDX8G` platform. It includes the compiled XMODEL and a balanced GTSRB test
 subset (10 images from each of the 43 classes).
 
-See `../../DOCUMENTACAO.md` in the repository for the complete project documentation.
+See `../../docs/deployment-zcu104.md` for the complete deployment documentation.
 
 ## Copy one archive to the board
 
@@ -12,7 +12,7 @@ On the host, generate and copy the archive:
 
 ```bash
 ./scripts/package_zcu104.sh
-scp trafficsignnet_zcu104.tar.gz root@ZCU104_IP:/home/root/
+scp artifacts/zcu104/trafficsignnet_zcu104.tar.gz root@ZCU104_IP:/home/root/
 ```
 
 On the ZCU104:

@@ -17,7 +17,7 @@ import tensorflow as tf
 
 PROJECT_DIR = Path(__file__).resolve().parents[2]
 MODEL_PATH = PROJECT_DIR / "models" / "keras" / "TrafficSignNet_FP32.h5"
-RESULTS_DIR = PROJECT_DIR / "results"
+RESULTS_DIR = PROJECT_DIR / "results" / "cpu" / "tensorflow"
 
 WARMUP = 1000
 RUNS = 5

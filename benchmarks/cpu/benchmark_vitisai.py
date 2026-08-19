@@ -30,7 +30,7 @@ except ImportError as exc:
 
 PROJECT_DIR = Path(__file__).resolve().parents[2]
 DEFAULT_MODEL_PATH = PROJECT_DIR / "models" / "keras" / "TrafficSignNet_INT8.h5"
-DEFAULT_RESULTS_DIR = PROJECT_DIR / "results" / "vitisai"
+DEFAULT_RESULTS_DIR = PROJECT_DIR / "results" / "cpu" / "vitisai"
 INPUT_SHAPE = (1, 32, 32, 3)
 
 

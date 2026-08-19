@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import tensorflow as tf
 from tensorflow_model_optimization.quantization.keras import vitis_quantize
 
@@ -5,9 +7,10 @@ from tensorflow_model_optimization.quantization.keras import vitis_quantize
 # CONFIGURAÇÕES
 # =========================
 
-CALIB_PATH = "data/gtsrb/split/val"
-MODEL_PATH = "models/keras/TrafficSignNet_FP32_TF212.h5"
-OUTPUT_PATH = "models/keras/TrafficSignNet_INT8.h5"
+PROJECT_DIR = Path(__file__).resolve().parents[1]
+CALIB_PATH = PROJECT_DIR / "data" / "gtsrb" / "processed" / "val"
+MODEL_PATH = str(PROJECT_DIR / "models" / "keras" / "TrafficSignNet_FP32_TF212.h5")
+OUTPUT_PATH = str(PROJECT_DIR / "models" / "keras" / "TrafficSignNet_INT8.h5")
 
 IMAGE_SIZE = (32, 32)
 BATCH_SIZE = 32

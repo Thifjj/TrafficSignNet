@@ -1,10 +1,17 @@
-# TrafficSignNet para Vitis AI 3.5 e ZCU104
+# TrafficSignNet
 
-Este projeto contém o modelo FP32, quantização INT8, compilação XMODEL,
-benchmarks de host e o pacote de inferência VART para a ZCU104.
+TrafficSignNet is a complete GTSRB traffic-sign classification project. It contains the dataset preparation flow, model artifacts, TensorFlow/Vitis AI CPU benchmarks, NVIDIA GPU benchmarks, and a Vitis AI deployment for the ZCU104.
 
-Consulte [DOCUMENTACAO.md](DOCUMENTACAO.md) para a descrição completa do fluxo,
-de cada arquivo, dos comandos de execução e da interpretação dos resultados.
+## Repository map
 
-Para executar diretamente na placa, consulte também
-[`deploy/zcu104/README.md`](deploy/zcu104/README.md).
+- `data/gtsrb/`: downloaded archives, extracted raw files, and processed train/validation/test splits.
+- `training/`: dataset preparation and TensorFlow-compatible model reconstruction.
+- `optimization/`: Vitis AI INT8 quantization.
+- `models/`: Keras and compiled accelerator artifacts.
+- `benchmarks/cpu/`: FP32 TensorFlow and Vitis AI INT8 CPU benchmarks.
+- `benchmarks/gpu/`: NVIDIA CUDA benchmark.
+- `deploy/zcu104/`: board-side VART inference and C++ benchmark.
+- `results/`: benchmark measurements grouped by platform.
+- `docs/`: focused project documentation.
+
+Start with [docs/README.md](docs/README.md).

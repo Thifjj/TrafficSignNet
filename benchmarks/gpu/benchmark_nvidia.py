@@ -24,7 +24,7 @@ except ImportError as exc:
 
 PROJECT_DIR = Path(__file__).resolve().parents[2]
 DEFAULT_MODEL = PROJECT_DIR / "models" / "keras" / "TrafficSignNet_INT8.h5"
-DEFAULT_RESULTS = PROJECT_DIR / "results" / "vitisai_nvidia_gpu"
+DEFAULT_RESULTS = PROJECT_DIR / "results" / "gpu" / "nvidia"
 INPUT_SHAPE = (1, 32, 32, 3)
 NVIDIA_MARKERS = ("nvidia", "geforce", "rtx", "4070")
 
